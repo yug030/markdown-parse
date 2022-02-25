@@ -21,7 +21,7 @@ public class MarkdownParse {
             } else if (currentIndex < closeParen) {
                 currentIndex = closeParen + 1;
             }
-            String link = markdown.substring(nextCloseBracketAndOpenParen + 2, closeParen);
+            String link = markdown.substring(nextCloseBracketAndOpenParen + 2, closeParen).trim();
             if (!link.contains(" ")) {
                 toReturn.add(link);
             }
