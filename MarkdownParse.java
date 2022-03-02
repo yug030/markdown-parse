@@ -1,5 +1,6 @@
 // File reading code from https://howtodoinjava.com/java/io/java-read-file-to-string-examples/
 import java.io.IOException;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -29,9 +30,26 @@ public class MarkdownParse {
         return toReturn;
     }
     public static void main(String[] args) throws IOException {
-		Path fileName = Path.of(args[0]);
+		/*
+        Path fileName = Path.of(args[0]);
 	    String contents = Files.readString(fileName);
         ArrayList<String> links = getLinks(contents);
         System.out.println(links);
+        */
+        
+        File dirOrFile = new File(args[0]);
+        if (dirOrFile.isDirectory()) {
+            for (File f: dirOrFile.listFiles()) {
+                Path fileName = f.toPath();
+                String contents = Files.readString(fileName);
+                ArrayList<String> links = getLinks(contents);
+                System.out.println(links);
+            }
+        } else {
+            Path fileName = dirOrFile.toPath();
+            String contents = Files.readString(fileName);
+            ArrayList<String> links = getLinks(contents);
+            System.out.println(links);
+        }
     }
 }
